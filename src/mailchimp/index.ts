@@ -1,6 +1,8 @@
 import {asyncList} from '@sanity/sanity-plugin-async-list'
 import {definePlugin} from 'sanity'
 
+import {Option} from './components/option'
+
 interface MailchimpInputConfig {
   apiKey: string
   server: string
@@ -48,6 +50,9 @@ export const mailchimpInput = definePlugin<MailchimpInputConfig>((options) => {
           // })
           // const response = await mailchimp.ping.get()
           // console.log(response)
+        },
+        autocompleteProps: {
+          renderOption: (option) => Option(option),
         },
       }),
     ],
