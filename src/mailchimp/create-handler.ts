@@ -1,15 +1,36 @@
 import mailchimp from '@mailchimp/mailchimp_marketing'
+
 import createHandler from '../shared/create-handler'
 
 // Fetch from Mailchimp's API
-async function fetchMailchimpData({key, server}: {key: string; server: string}): Promise<unknown> {
+export async function fetchMailchimpData({
+  key,
+  server,
+}: {
+  key: string
+  server: string
+}): Promise<unknown> {
   mailchimp.setConfig({
     apiKey: key,
     server: server,
   })
-
-  const response = await mailchimp.ping.get()
-  return response
+  const signupForms = []
+  // @ts-expect-error bad typing for mailchimp
+  const {lists} = await mailchimp.lists.getAllLists()
+  for (const list of lists) {
+    // @ts-expect-error bad typing for mailchimp
+    const {signup_forms} = await mailchimp.lists.getListSignupForms(list.id)
+    // console.log('forms', signup_forms)
+    // eslint-disable-next-line camelcase
+    for (const form of signup_forms) {
+      signupForms.push({
+        list,
+        form,
+        value: form.signup_form_url,
+      })
+    }
+  }
+  return signupForms
 }
 
 // Create the Mailchimp handler for a specific key and server

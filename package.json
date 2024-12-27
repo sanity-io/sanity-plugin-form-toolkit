@@ -53,6 +53,8 @@
   "devDependencies": {
     "@sanity/pkg-utils": "^6.11.14",
     "@sanity/plugin-kit": "^4.0.18",
+    "@types/cors": "^2.8.17",
+    "@types/mailchimp__mailchimp_marketing": "^3.0.20",
     "@types/react": "^18",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",

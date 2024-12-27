@@ -4,6 +4,7 @@ import {definePlugin} from 'sanity'
 interface MailchimpInputConfig {
   apiKey: string
   server: string
+  url: string | URL
 }
 
 /**
@@ -20,20 +21,23 @@ interface MailchimpInputConfig {
  * ```
  */
 
-export const mailchimpInput = definePlugin(() => {
+export const mailchimpInput = definePlugin<MailchimpInputConfig>((options) => {
   return {
     name: 'sanity-plugin-form-toolkit_mailchimp-input',
     plugins: [
       asyncList({
-        schemaType: 'mailchimpInput',
-        secrets: {
-          keys: [
-            {key: 'apiKey', title: 'API Key'},
-            {key: 'server', title: 'Server prefix'},
-          ],
-        },
+        schemaType: 'mailchimpForm',
+        // secrets: {
+        //   keys: [
+        //     {key: 'apiKey', title: 'API Key'},
+        //     {key: 'server', title: 'Server prefix'},
+        //   ],
+        // },
         loader: async ({secrets}) => {
           console.log('secrets', secrets)
+          const data = await fetch(options.url)
+          const body = await data.json()
+          return body
 
           // if (!secrets || !secrets.apiKey || !secrets.server)
           //   throw new Error('Missing keys for Mailchimp input')
@@ -44,7 +48,6 @@ export const mailchimpInput = definePlugin(() => {
           // })
           // const response = await mailchimp.ping.get()
           // console.log(response)
-          return []
         },
       }),
     ],

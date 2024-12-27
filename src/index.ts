@@ -27,6 +27,6 @@
 // import {formSchema} from './form-schema'
 // import {formiumInput} from './formium'
 import {mailchimpInput} from './mailchimp'
-import {mailchimpHandler} from './mailchimp/create-handler'
+import {fetchMailchimpData, mailchimpHandler} from './mailchimp/create-handler'
 
-export {mailchimpHandler, mailchimpInput}
+export {fetchMailchimpData, mailchimpHandler, mailchimpInput}

@@ -18,7 +18,7 @@ const detectFramework = (): string => {
 }
 
 // Create a generic handler with predefined logic
-const createHandler = (handlerFunc: Promise<unknown>) => {
+const createHandler = (handlerFunc: () => Promise<unknown>) => {
   const framework = detectFramework()
 
   // Handler logic to fetch Mailchimp data
@@ -42,18 +42,32 @@ const createHandler = (handlerFunc: Promise<unknown>) => {
       // Return the response for frameworks like SvelteKit, Remix, and Astro
       return data
     } catch (error) {
+      if (error instanceof Error) {
+        if (res) {
+          res.writeHead(500, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify({error: error.message}))
+          return // Ensure no value is returned
+        }
+        return {error: error.message}
+      }
+      // Handle non-Error types (e.g., strings, objects)
       if (res) {
         res.writeHead(500, {'Content-Type': 'application/json'})
-        res.end(JSON.stringify({error: error.message}))
+        res.end(JSON.stringify({error: 'An unexpected error occurred'}))
         return // Ensure no value is returned
       }
-      return {error: error.message}
+      return {error: 'An unexpected error occurred'}
     }
   }
-
+  console.log('framework', framework)
   // Framework-specific implementations
   if (framework === 'nextjs') {
     return async (req: IncomingMessage, res: ServerResponse) => {
+      // Set CORS headers
+      res.setHeader('Access-Control-Allow-Origin', '*') // Allow all origins
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS') // Allowed HTTP methods
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization') // Allowed headers
+
       await handlerLogic({req, res})
     }
   } else if (framework === 'nuxt') {
