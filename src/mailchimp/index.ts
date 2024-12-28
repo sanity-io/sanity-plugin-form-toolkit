@@ -4,8 +4,6 @@ import {definePlugin} from 'sanity'
 import {Option} from './components/option'
 
 interface MailchimpInputConfig {
-  apiKey: string
-  server: string
   url: string | URL
 }
 
