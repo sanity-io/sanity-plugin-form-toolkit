@@ -12,6 +12,8 @@ npm install @sanity/sanity-plugin-form-toolkit
 
 ## Mailchimp
 
+The Mailchimp integration fetches all signup forms across all lists in your Mailchimp account and syncs the URL for the selected form.
+
 ### Usage
 
 This plugin requires you to set up your own API route to fetch against Mailchimp's API. You'll need to pass an API key and server prefix to the underlying Mailchimp marketing client. Learn how to get a Mailchimp API key [here](https://mailchimp.com/help/about-api-keys/).
