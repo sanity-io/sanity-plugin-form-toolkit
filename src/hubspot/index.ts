@@ -1,9 +1,7 @@
 import {asyncList} from '@sanity/sanity-plugin-async-list'
 import {definePlugin} from 'sanity'
 
-import {Option} from './components/option'
-
-interface MailchimpInputConfig {
+interface HubSpotInputConfig {
   url: string | URL
 }
 
@@ -12,30 +10,33 @@ interface MailchimpInputConfig {
  *
  * ```ts
  * import {defineConfig} from 'sanity'
- * import {formiumInput} from 'sanity-plugin-form-toolkit'
+ * import {hubSpotInput} from '@sanity/sanity-plugin-form-toolkit'
  *
  * export default defineConfig({
  *   // ...
- *   plugins: [formiumInput()],
+ *   plugins: [
+ *    hubSpotInput({
+ *      url: 'http://localhost:3000/api/hubspot'
+ *    })
+ *   ],
  * })
  * ```
  */
 
-export const mailchimpInput = definePlugin<MailchimpInputConfig>((options) => {
+export const hubSpotInput = definePlugin<HubSpotInputConfig>((options) => {
   return {
-    name: 'sanity-plugin-form-toolkit_mailchimp-input',
+    name: 'sanity-plugin-form-toolkit_hubspot-input',
     plugins: [
       asyncList({
-        schemaType: 'mailchimpForm',
+        schemaType: 'hubSpotForm',
         loader: async () => {
           const data = await fetch(options.url)
           const body = await data.json()
           return body
         },
-        autocompleteProps: {
-          //@ts-expect-error incorrect typing on props?
-          renderOption: (option) => Option(option),
-        },
+        // autocompleteProps: {
+        //   renderOption: (option) => Option(option),
+        // },
       }),
     ],
   }

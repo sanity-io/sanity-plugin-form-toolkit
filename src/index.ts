@@ -26,7 +26,9 @@
 // })
 // import {formSchema} from './form-schema'
 // import {formiumInput} from './formium'
+import {hubSpotInput} from './hubspot'
+import {hubspotHandler} from './hubspot/create-handler'
 import {mailchimpInput} from './mailchimp'
 import {fetchMailchimpData, mailchimpHandler} from './mailchimp/create-handler'
 
-export {fetchMailchimpData, mailchimpHandler, mailchimpInput}
+export {fetchMailchimpData, hubspotHandler, hubSpotInput, mailchimpHandler, mailchimpInput}
