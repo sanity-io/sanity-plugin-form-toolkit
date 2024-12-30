@@ -59,7 +59,7 @@ const createHandler = (handlerFunc: () => Promise<unknown>) => {
       return {error: 'An unexpected error occurred'}
     }
   }
-  console.log('framework', framework)
+
   // Framework-specific implementations
   if (framework === 'nextjs') {
     return async (req: IncomingMessage, res: ServerResponse) => {
