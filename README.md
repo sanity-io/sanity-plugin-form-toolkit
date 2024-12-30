@@ -16,7 +16,7 @@ The Mailchimp integration fetches all forms in a HubSpot project and syncs the I
 
 ### Usage
 
-This plugin requires you to set up your own API route to fetch against HubSpot's API. You'll need to also create a Private App in HubSpot to create and pass a Private App access token to the provided fetch function. Learn how to create a Private App and acquire an access token [here](https://developers.hubspot.com/docs/guides/apps/private-apps/overview).
+This plugin requires you to set up your own API route to fetch against HubSpot's API. You'll need to also create a Private App in HubSpot to create and pass a Private App access token to the provided fetch function. Learn how to create a Private App and get an access token [here](https://developers.hubspot.com/docs/guides/apps/private-apps/overview).
 
 There's an "out of the box" handler for Next.js API routes:
 
