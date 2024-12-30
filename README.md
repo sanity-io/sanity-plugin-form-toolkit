@@ -12,7 +12,7 @@ npm install @sanity/sanity-plugin-form-toolkit
 
 ## HubSpot
 
-The Mailchimp integration fetches all forms in a HubSpot project and syncs the ID for the selected form.
+The HubSpot integration fetches all forms in a HubSpot project and adds them as options in a selectable list.
 
 ### Usage
 

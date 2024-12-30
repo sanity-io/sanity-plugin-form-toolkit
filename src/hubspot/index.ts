@@ -1,6 +1,8 @@
 import {asyncList} from '@sanity/sanity-plugin-async-list'
 import {definePlugin} from 'sanity'
 
+import {Option} from './components/option'
+
 interface HubSpotInputConfig {
   url: string | URL
 }
@@ -34,9 +36,12 @@ export const hubSpotInput = definePlugin<HubSpotInputConfig>((options) => {
           const body = await data.json()
           return body
         },
-        // autocompleteProps: {
-        //   renderOption: (option) => Option(option),
-        // },
+        autocompleteProps: {
+          renderOption: (option) => Option(option),
+          renderValue(value, option) {
+            return option?.name ?? value
+          },
+        },
       }),
     ],
   }

@@ -35,7 +35,5 @@ export async function fetchMailchimpData({
 
 // Create the Mailchimp handler for a specific key and server
 export const mailchimpHandler = (keys: {key: string; server: string}) => {
-  console.log('keys', keys)
-  // Pass a function reference to `createHandler`
   return createHandler(() => fetchMailchimpData(keys))
 }
