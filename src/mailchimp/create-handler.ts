@@ -20,7 +20,6 @@ export async function fetchMailchimpData({
   for (const list of lists) {
     // @ts-expect-error bad typing for mailchimp
     const {signup_forms} = await mailchimp.lists.getListSignupForms(list.id)
-    // console.log('forms', signup_forms)
     // eslint-disable-next-line camelcase
     for (const form of signup_forms) {
       signupForms.push({
@@ -35,7 +34,5 @@ export async function fetchMailchimpData({
 
 // Create the Mailchimp handler for a specific key and server
 export const mailchimpHandler = (keys: {key: string; server: string}) => {
-  console.log('keys', keys)
-  // Pass a function reference to `createHandler`
   return createHandler(() => fetchMailchimpData(keys))
 }

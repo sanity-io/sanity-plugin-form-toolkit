@@ -37,7 +37,6 @@ export const formiumInput = definePlugin<FormiumInputConfig | void>((config = {}
             apiToken: secrets?.token,
           })
           const {data}: {data: Form[]} = await formium.findForms()
-          console.log('data', data)
           return data && data.length
             ? data.map(({name, id}) => {
                 return {
