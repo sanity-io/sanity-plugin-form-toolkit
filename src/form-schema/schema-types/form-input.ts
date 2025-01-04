@@ -1,4 +1,5 @@
 import {
+  BlockElementIcon,
   CalendarIcon,
   ClockIcon,
   ColorWheelIcon,
@@ -11,28 +12,23 @@ import {
 } from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 
-export const formFieldType = defineType({
-  name: 'formField',
+import {TypeDescription} from './components/type-description'
+export const isUnique = (slug, context) => {
+  console.log('slug', slug)
+  console.log('context', context)
+  return true
+}
+export const formInputType = defineType({
+  name: 'formInput',
+  title: 'Input',
+  icon: BlockElementIcon,
   type: 'object',
   fields: [
-    defineField({
-      name: 'label',
-      type: 'string',
-      group: 'info',
-    }),
-    defineField({
-      name: 'name',
-      type: 'slug',
-      group: 'info',
-      validation: (rule) => rule.required(),
-      options: {
-        source: 'label',
-      },
-    }),
     defineField({
       name: 'type',
       type: 'string',
       group: 'info',
+      description: TypeDescription(),
       validation: (rule) => rule.required(),
       options: {
         list: [
@@ -50,6 +46,33 @@ export const formFieldType = defineType({
           {value: 'url', title: 'URL'},
           'week',
         ],
+      },
+    }),
+    defineField({
+      name: 'name',
+      type: 'slug',
+      group: 'info',
+      description: 'The field name in the form data',
+      validation: (rule) => rule.required(),
+      options: {
+        source: (doc, {parent}) => parent && parent.label,
+      },
+    }),
+    defineField({
+      name: 'label',
+      type: 'string',
+      group: 'info',
+      description: 'The human-readable label for the field ',
+    }),
+    defineField({
+      name: 'placeholder',
+      type: 'string',
+      group: 'info',
+      description: 'The value that shows in the field when no value is present',
+      hidden: ({parent}) => {
+        const allowedTypes = ['text', 'url', 'tel', 'email', 'number']
+
+        return !allowedTypes.includes(parent.type)
       },
     }),
     defineField({

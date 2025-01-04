@@ -1,8 +1,11 @@
 import type {SchemaTypeDefinition} from 'sanity'
 
 import {formType} from './form'
-import {formFieldType} from './form-field'
+import {formInputType} from './form-input'
+import {optionType} from './option'
+import {optionGroupType} from './option-group'
+import {selectType} from './select'
 
 export const schema: {types: SchemaTypeDefinition[]} = {
-  types: [formFieldType, formType],
+  types: [formInputType, formType, optionType, selectType, optionGroupType],
 }

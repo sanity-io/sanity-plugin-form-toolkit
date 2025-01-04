@@ -1,4 +1,4 @@
-// import {formSchema} from './form-schema'
+import {formSchema} from './form-schema'
 // import {formiumInput} from './formium'
 import {hubSpotInput} from './hubspot'
 import {hubSpotHandler} from './hubspot/create-handler'
@@ -9,6 +9,7 @@ import {fetchMailchimpData, mailchimpHandler} from './mailchimp/create-handler'
 export {
   fetchHubSpotData,
   fetchMailchimpData,
+  formSchema,
   hubSpotHandler,
   hubSpotInput,
   mailchimpHandler,
