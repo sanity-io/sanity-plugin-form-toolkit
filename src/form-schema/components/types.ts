@@ -1,3 +1,4 @@
+// types.ts
 export type ValidationRule = {
   type: string
   value: string
@@ -34,7 +35,7 @@ export type FormSection = {
   }
 }
 
-export type FormData = {
+export type FormDataProps = {
   title: string
   id: {
     current: string
@@ -46,8 +47,16 @@ export type FormData = {
   }
 }
 
-export type FieldComponentProps = {
+// New type for field state management
+export interface FieldState {
+  value: any
+  onChange: (value: any) => void
+  onBlur?: () => void
+  ref?: React.Ref<any>
+}
+
+export interface FieldComponentProps {
   field: FormField
-  register: any // Type from react-hook-form
-  errors: Record<string, any>
+  fieldState: FieldState
+  error?: string
 }

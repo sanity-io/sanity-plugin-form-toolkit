@@ -1,0 +1,59 @@
+import {useFormik} from 'formik'
+import {FormRenderer} from '../form-renderer'
+import type {FormDataProps} from '../types'
+
+interface FormikExampleProps {
+  formData: FormDataProps
+  onSubmit?: (data: any) => void
+}
+
+export const FormikExample: FC<FormikExampleProps> = ({formData, onSubmit = console.log}) => {
+  const initialValues = formData.sections?.reduce(
+    (acc, section) => {
+      section.fields?.forEach((field) => {
+        acc[field.name] = field.options?.defaultValue ?? ''
+      })
+      return acc
+    },
+    {} as Record<string, any>,
+  )
+
+  const formik = useFormik({
+    initialValues: initialValues ?? {},
+    onSubmit,
+    validate: (values) => {
+      const errors: Record<string, string> = {}
+
+      formData.sections?.forEach((section) => {
+        section.fields?.forEach((field) => {
+          if (field.required && !values[field.name]) {
+            errors[field.name] = 'This field is required'
+          }
+        })
+      })
+
+      return errors
+    },
+  })
+
+  const getFieldState = (fieldName: string) => ({
+    value: formik.values[fieldName],
+    onChange: (value: any) => formik.setFieldValue(fieldName, value),
+    onBlur: () => formik.setFieldTouched(fieldName),
+  })
+
+  const getFieldError = (fieldName: string) =>
+    formik.touched[fieldName] ? formik.errors[fieldName] : undefined
+
+  const getFieldValue = (fieldName: string) => formik.values[fieldName]
+
+  return (
+    <FormRenderer
+      formData={formData}
+      onSubmit={formik.handleSubmit}
+      getFieldState={getFieldState}
+      getFieldError={getFieldError}
+      getFieldValue={getFieldValue}
+    />
+  )
+}

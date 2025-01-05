@@ -1,5 +1,12 @@
 import {defineField, defineType} from 'sanity'
-
+interface ValidationContextDocument {
+  sections?: Array<{
+    fields?: Array<{
+      name: string
+      type?: string
+    }>
+  }>
+}
 // Validation options by field type
 const validationTypesByFieldType = {
   text: ['minLength', 'maxLength', 'pattern', 'custom'],
@@ -20,116 +27,7 @@ const validationTypesByFieldType = {
   range: ['min', 'max', 'step', 'custom'],
   hidden: ['custom'],
 }
-interface ValidationContextDocument {
-  sections?: Array<{
-    fields?: Array<{
-      name: string
-      type?: string
-    }>
-  }>
-}
-export const form = defineType({
-  name: 'form',
-  title: 'Form',
-  type: 'document',
-  fields: [
-    defineField({
-      name: 'title',
-      title: 'Form Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'id',
-      title: 'Form ID',
-      type: 'slug',
-      options: {
-        source: 'title',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'sections',
-      title: 'Form Sections',
-      type: 'array',
-      of: [{type: 'formSection'}],
-    }),
-    defineField({
-      name: 'submitButton',
-      title: 'Submit Button',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'text',
-          title: 'Button Text',
-          type: 'string',
-          initialValue: 'Submit',
-        }),
-        defineField({
-          name: 'position',
-          title: 'Button Position',
-          type: 'string',
-          options: {
-            list: ['left', 'center', 'right'],
-          },
-          initialValue: 'center',
-        }),
-      ],
-    }),
-  ],
-})
-
-export const formSection = defineType({
-  name: 'formSection',
-  title: 'Form Section',
-  type: 'object',
-  fields: [
-    defineField({
-      name: 'title',
-      title: 'Section Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'fields',
-      title: 'Form Fields',
-      type: 'array',
-      of: [{type: 'formField'}],
-      // TODO: fix
-      // validation: (Rule) => Rule.unique('name'),
-    }),
-    defineField({
-      name: 'conditional',
-      title: 'Conditional Display',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'field',
-          title: 'Based on Field',
-          // todo: popuplate list
-          type: 'string',
-          options: {
-            list: [],
-          },
-        }),
-        defineField({
-          name: 'condition',
-          title: 'Condition',
-          type: 'string',
-          options: {
-            list: ['equals', 'not_equals', 'contains', 'not_contains'],
-          },
-        }),
-        defineField({
-          name: 'value',
-          title: 'Value',
-          type: 'string',
-        }),
-      ],
-    }),
-  ],
-})
-
-export const formField = defineType({
+export const formFieldType = defineType({
   name: 'formField',
   title: 'Form Field',
   type: 'object',

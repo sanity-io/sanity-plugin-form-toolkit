@@ -1,6 +1,6 @@
 import type {DefaultDocumentNodeResolver} from 'sanity/structure'
 
-import {DocumentView} from './claude/components/document-view'
+import {DocumentView} from './document-view'
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType}) => {
   console.log('schemaType', schemaType)
