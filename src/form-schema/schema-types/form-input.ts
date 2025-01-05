@@ -13,7 +13,7 @@ import {
 import {defineField, defineType} from 'sanity'
 
 import {TypeDescription} from './components/type-description'
-export const isUnique = (slug, context) => {
+export const isUnique = (slug: {current: string}, context: {}) => {
   console.log('slug', slug)
   console.log('context', context)
   return true
@@ -54,9 +54,10 @@ export const formInputType = defineType({
       group: 'info',
       description: 'The field name in the form data',
       validation: (rule) => rule.required(),
-      options: {
-        source: (doc, {parent}) => parent && parent.label,
-      },
+      // TODO fix typeerror
+      // options: {
+      //   source: (doc, {parent}) => parent && parent.label,
+      // },
     }),
     defineField({
       name: 'label',

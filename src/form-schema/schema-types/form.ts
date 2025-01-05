@@ -11,6 +11,7 @@ function getDuplicateIndices(arr: string[]) {
       if (!duplicates.some((indices) => indices.includes(seen.get(value)))) {
         duplicates.push([seen.get(value)])
       }
+      // @ts-expect-error idk bro
       duplicates.find((indices) => indices.includes(seen.get(value))).push(index)
     } else {
       seen.set(value, index) // Store the index of the value

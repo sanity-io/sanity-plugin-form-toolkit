@@ -6,17 +6,18 @@ import type {
 } from 'react'
 
 interface BaseField {
+  _key: string
   label?: string
   name?: {
     current: string
   }
 }
-interface FormInputField extends BaseField {
+export interface FormInputField extends BaseField {
   _type: 'formInput'
   type?: string
   placeholder?: string
 }
-interface SelectField extends BaseField {
+export interface SelectField extends BaseField {
   _type: 'select'
   options: {value: string; label: string; _key: string}[]
 }

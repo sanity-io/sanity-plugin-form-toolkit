@@ -4,7 +4,7 @@ import {type JSX, useState} from 'react'
 import type {ObjectInputProps} from 'sanity'
 
 import {Form} from '../../components/form'
-import {FormInput} from '../../components/form-input'
+import {FormInput, type FormInputField, type SelectField} from '../../components/form-input'
 
 export const Input = (props: ObjectInputProps): JSX.Element => {
   // console.log('props', props)
@@ -38,9 +38,11 @@ export const Input = (props: ObjectInputProps): JSX.Element => {
       <TabPanel aria-labelledby="preview-tab" hidden={id !== 'preview'} id="preview-panel">
         <Card width={'100%'} paddingTop={2}>
           {props.value && (
-            <Form form={props.value}>
+            <Form
+            // form={props.value}
+            >
               {props.value.fields &&
-                props.value.fields.map((field) => (
+                props.value.fields.map((field: FormInputField | SelectField) => (
                   <div key={field._key}>
                     <FormInput
                       field={field}

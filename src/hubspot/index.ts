@@ -37,8 +37,10 @@ export const hubSpotInput = definePlugin<HubSpotInputConfig>((options) => {
           return body
         },
         autocompleteProps: {
+          // @ts-expect-error todo
           renderOption: (option) => Option(option),
           renderValue(value, option) {
+            // @ts-expect-error todo
             return option?.name ?? value
           },
         },

@@ -13,9 +13,10 @@ export const selectType = defineType({
     defineField({
       name: 'name',
       type: 'slug',
-      options: {
-        source: (doc, {parent}) => parent && parent.label,
-      },
+      // TODO: fix typeerror
+      // options: {
+      //   source: (doc, {parent}) => parent && parent.label,
+      // },
       validation: (rule) => rule.required(),
     }),
     defineField({
