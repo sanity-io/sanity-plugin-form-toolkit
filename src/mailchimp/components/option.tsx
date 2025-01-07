@@ -1,7 +1,20 @@
-import {Card, Text, Stack} from '@sanity/ui'
+import {Card, Text} from '@sanity/ui'
 import type {ReactElement} from 'react'
 
-export const Option = (option: {value: string}): ReactElement => {
+export const Option = (option: {
+  value: string
+  form: {
+    header: {
+      text?: string
+    }
+  }
+  list: {
+    name: string
+    stats: {
+      member_count: number
+    }
+  }
+}): ReactElement => {
   return (
     <Card data-as="button" padding={3} radius={2} tone="inherit">
       <Text size={2} textOverflow="ellipsis">
