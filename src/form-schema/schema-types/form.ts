@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-
+import {SectionInput} from './components/section-input'
 export const formType = defineType({
   name: 'form',
   title: 'Form',

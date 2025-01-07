@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {SectionInput} from './components/section-input'
 export const formSectionType = defineType({
   name: 'formSection',
   title: 'Form Section',
@@ -25,7 +26,7 @@ export const formSectionType = defineType({
         defineField({
           name: 'field',
           title: 'Based on Field',
-          // todo: popuplate list
+          // TODO: popuplate list
           type: 'string',
           options: {
             list: [],
@@ -47,4 +48,7 @@ export const formSectionType = defineType({
       ],
     }),
   ],
+  components: {
+    input: SectionInput,
+  },
 })

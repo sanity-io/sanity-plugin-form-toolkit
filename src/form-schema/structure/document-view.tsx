@@ -62,6 +62,6 @@ const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = console
   )
 }
 export const DocumentView = (props: {document: {displayed: FormDataProps}}) => {
-  console.log('props', props)
+  // console.log('props', props)
   return <UseStateExample formData={props.document.displayed} />
 }
