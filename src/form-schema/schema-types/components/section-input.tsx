@@ -1,64 +1,90 @@
 import {useEffect, useMemo, useState} from 'react'
-import {useObservable} from 'react-rx'
 import {type ObjectInputProps, useDocumentStore, useFormValue} from 'sanity'
 
 export const SectionInput = (props: ObjectInputProps) => {
-  console.log('props', props)
   const id = useFormValue(['_id'])
   const documentStore = useDocumentStore()
-  const observable = useMemo(() => {
-    // @ts-expect-error idk
-    return documentStore.listenQuery(`*[_type == 'form' && _id == $id][0]`, {id}, {})
-  }, [documentStore, id])
-  const results = useObservable(observable, {})
-  const list = () => {
-    // console.log('list called')
-    // console.log('results', results)
-    const fields = []
-    if (results && results.sections) {
-      for (const section of results.sections) {
-        if (section.fields) {
-          for (const field of section.fields) {
-            if (field.name) {
-              fields.push({value: field.name, title: field.label ?? field.name})
-            }
-          }
-        }
-      }
-    }
-    console.log('fields', fields)
-    return fields
-  }
+  const [fields, setFields] = useState([])
 
-  const newProps = {
-    ...props,
-    schemaType: {
-      ...props.schemaType,
-      fields: props.schemaType.fields.map((field) => {
-        if (field.name !== 'conditional') return field
-        return {
-          ...field,
-          type: {
-            ...field.type,
-            fields: field.type.fields.map((field) => {
-              if (field.name !== 'field') return field
-              console.log('field.name is field', field)
-              return {
-                ...field,
-                type: {
-                  ...field.type,
-                  options: {
-                    ...field.type.options,
-                    list: list(),
-                  },
-                },
+  useEffect(() => {
+    if (!id || !documentStore) return
+
+    const subscription = documentStore
+      .listenQuery(`*[_type == 'form' && _id == $id][0]`, {id}, {})
+      .subscribe({
+        next: (results) => {
+          const newFields = []
+
+          if (results?.sections) {
+            results.sections.forEach((section) => {
+              if (section.fields) {
+                section.fields.forEach((field) => {
+                  if (field.name) {
+                    newFields.push({
+                      value: field.name,
+                      title: field.label || field.name,
+                    })
+                  }
+                })
               }
-            }),
+            })
+          }
+
+          console.log('Extracted fields:', newFields)
+          setFields(newFields)
+        },
+        error: (err) => console.error('Query error:', err),
+      })
+
+    return () => subscription.unsubscribe()
+  }, [id, documentStore])
+
+  const newProps = useMemo(() => {
+    const modifiedFields = props.schemaType.fields.map((field) => {
+      if (field.name !== 'conditional') return field
+
+      // Ensure we have the type property
+      if (!field.type) return field
+
+      // For the conditional object field
+      const typeFields = field.type.fields.map((subfield) => {
+        if (subfield.name !== 'field') return subfield
+
+        // For the field selection input
+        return {
+          ...subfield,
+          type: {
+            ...subfield.type,
+            options: {
+              ...subfield.type.options,
+              list: fields,
+            },
           },
         }
-      }),
-    },
-  }
-  console.log('newprops', newProps)
-  return newProps.renderDefault(newProps)
+      })
+
+      return {
+        ...field,
+        type: {
+          ...field.type,
+          fields: typeFields,
+        },
+      }
+    })
+
+    return {
+      ...props,
+      schemaType: {
+        ...props.schemaType,
+        fields: modifiedFields,
+      },
+    }
+  }, [props, fields])
+
+  // Debug logging
+  const conditionalField = newProps.schemaType.fields.find((f) => f.name === 'conditional')
+  console.log('Conditional field type:', conditionalField?.type)
+  console.log('Available fields:', fields)
+
+  return props.renderDefault(newProps)
 }

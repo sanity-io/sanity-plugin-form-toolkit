@@ -1,5 +1,7 @@
 import {defineField, defineType} from 'sanity'
+
 import {SectionInput} from './components/section-input'
+
 export const formSectionType = defineType({
   name: 'formSection',
   title: 'Form Section',
@@ -22,6 +24,9 @@ export const formSectionType = defineType({
       name: 'conditional',
       title: 'Conditional Display',
       type: 'object',
+      options: {
+        collapsed: true,
+      },
       fields: [
         defineField({
           name: 'field',

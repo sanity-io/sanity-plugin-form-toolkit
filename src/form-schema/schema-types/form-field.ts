@@ -8,7 +8,7 @@ interface ValidationContextDocument {
   }>
 }
 // Validation options by field type
-const validationTypesByFieldType = {
+export const validationTypesByFieldType = {
   text: ['minLength', 'maxLength', 'pattern', 'custom'],
   email: ['pattern', 'custom'],
   password: ['minLength', 'pattern', 'custom'],
