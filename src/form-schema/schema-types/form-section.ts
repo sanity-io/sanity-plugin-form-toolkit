@@ -1,6 +1,6 @@
 import {defineField, defineType} from 'sanity'
 
-import {SectionInput} from './components/section-input'
+// import {SectionInput} from './components/section-input'
 
 export const formSectionType = defineType({
   name: 'formSection',
@@ -17,8 +17,6 @@ export const formSectionType = defineType({
       title: 'Form Fields',
       type: 'array',
       of: [{type: 'formField'}],
-      // TODO: fix
-      // validation: (Rule) => Rule.unique('name'),
     }),
     defineField({
       name: 'conditional',
@@ -53,7 +51,7 @@ export const formSectionType = defineType({
       ],
     }),
   ],
-  components: {
-    input: SectionInput,
-  },
+  // components: {
+  //   input: SectionInput,
+  // },
 })
