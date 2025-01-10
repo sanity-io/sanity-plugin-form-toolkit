@@ -9,7 +9,7 @@ export const Option = (option: {value: string; name: string}): ReactElement => {
       </Text>
       <Card paddingTop={2} tone="inherit" style={{background: 'inherit'}}>
         <Text size={1} textOverflow="ellipsis">
-          {`ID: ${option.id}`}
+          {`ID: ${option.value}`}
         </Text>
       </Card>
     </Card>
