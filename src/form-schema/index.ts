@@ -19,7 +19,7 @@ interface FormSchemaConfig {
  * ```
  */
 // Is Formium dead? All attempts to use the API come back with an expired cert https://github.com/formium/formium/issues/77
-export const formSchema = definePlugin<FormSchemaConfig | void>((config = {}) => {
+export const formSchema = definePlugin<FormSchemaConfig | void>(() => {
   return {
     name: 'sanity-plugin-form-toolkit_form-schema',
     schema,
