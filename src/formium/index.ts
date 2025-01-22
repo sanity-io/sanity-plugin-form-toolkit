@@ -20,7 +20,7 @@ interface FormiumInputConfig {
  * ```
  */
 // Is Formium dead? All attempts to use the API come back with an expired cert https://github.com/formium/formium/issues/77
-export const formiumInput = definePlugin<FormiumInputConfig | void>((config = {}) => {
+export const formiumInput = definePlugin<FormiumInputConfig | void>(() => {
   return {
     name: 'sanity-plugin-form-toolkit_formium-input',
     plugins: [
