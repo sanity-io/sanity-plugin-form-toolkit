@@ -1,5 +1,5 @@
 {
-  "name": "@sanity/sanity-plugin-form-toolkit",
+  "name": "@sanity/form-toolkit",
   "version": "1.0.0",
   "description": "Tool kit for integrating forms with a Sanity Studio",
   "keywords": [
