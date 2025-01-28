@@ -5,6 +5,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/sanity-io/form-toolkit/compare/v1.0.0...v1.1.0) (2025-01-28)
+
+### Features
+
+- rename ([c8ebbf5](https://github.com/sanity-io/form-toolkit/commit/c8ebbf5805988fd8067b5dea570a37371a9134b9))
+
+### Bug Fixes
+
+- gh urls ([a28b352](https://github.com/sanity-io/form-toolkit/commit/a28b3527f309e01b1b6b099af2d90ce1df360960))
+
 ## 1.0.0 (2025-01-22)
 
 ### Features
