@@ -1,6 +1,6 @@
 ## Usage
 
-# sanity-plugin-form-toolkit
+# @sanity/form-toolkit
 
 Plugin for integrating 3rd party form services or building your own forms with Sanity.
 
@@ -9,7 +9,7 @@ Plugin for integrating 3rd party form services or building your own forms with S
 ## Installation
 
 ```sh
-npm install @sanity/sanity-plugin-form-toolkit
+npm install @sanity/form-toolkit
 ```
 
 ## HubSpot
@@ -24,7 +24,7 @@ There's an "out of the box" handler for Next.js API routes:
 
 ```ts
 // pages/api/hubspot.ts
-import {hubSpotHandler} from '@sanity/sanity-plugin-form-toolkit'
+import {hubSpotHandler} from '@sanity/form-toolkit'
 
 const handler = hubSpotHandler({
   token: process.env.HUBSPOT_TOKEN ?? '',
@@ -37,7 +37,7 @@ Or add `fetchHubSpotData` to an API route in your non-Next framework
 
 ```ts
 // my-nuxt-app/server/api/hubspot.ts
-import {fetchHubSpotData} from '@sanity/sanity-plugin-form-toolkit'
+import {fetchHubSpotData} from '@sanity/form-toolkit'
 
 export default defineEventHandler(async (event) => {
   const req = event.node.req
@@ -54,7 +54,7 @@ Add it as a plugin in `sanity.config.ts` (or .js):
 
 ```ts
 import {defineConfig} from 'sanity'
-import {hubSpotInput} from '@sanity/sanity-plugin-form-toolkit'
+import {hubSpotInput} from '@sanity/form-toolkit'
 
 export default defineConfig({
   //...
@@ -96,7 +96,7 @@ There's an "out of the box" handler for Next.js API routes:
 
 ```ts
 // pages/api/mailchimp.ts
-import {mailchimpHandler} from '@sanity/sanity-plugin-form-toolkit'
+import {mailchimpHandler} from '@sanity/form-toolkit'
 
 const handler = mailchimpHandler({
   key: process.env.MAILCHIMP_KEY ?? '',
@@ -110,7 +110,7 @@ Or add `fetchMailchimpData` to an API route in your non-Next framework
 
 ```ts
 // my-nuxt-app/server/api/mailchimp.ts
-import {fetchMailchimpData} from '@sanity/sanity-plugin-form-toolkit'
+import {fetchMailchimpData} from '@sanity/form-toolkit'
 
 export default defineEventHandler(async (event) => {
   const req = event.node.req
@@ -128,7 +128,7 @@ Add it as a plugin in `sanity.config.ts` (or .js):
 
 ```ts
 import {defineConfig} from 'sanity'
-import {mailchimpInput} from '@sanity/sanity-plugin-form-toolkit'
+import {mailchimpInput} from '@sanity/form-toolkit'
 
 export default defineConfig({
   //...
@@ -173,7 +173,7 @@ on how to run this plugin with hotreload in the studio.
 
 ### Release new version
 
-Run ["CI & Release" workflow](https://github.com/sanity-io/sanity-plugin-form-toolkit/actions/workflows/main.yml).
+Run ["CI & Release" workflow](https://github.com/sanity-io/form-toolkit/actions/workflows/main.yml).
 Make sure to select the main branch and check "Release new version".
 
 Semantic release will only release on configured branches, so it is safe to run release on any branch.
