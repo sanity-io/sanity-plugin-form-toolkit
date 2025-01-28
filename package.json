@@ -6,13 +6,13 @@
     "sanity",
     "sanity-plugin"
   ],
-  "homepage": "https://github.com/sanity-io/sanity-plugin-form-toolkit#readme",
+  "homepage": "https://github.com/sanity-io/form-toolkit#readme",
   "bugs": {
-    "url": "https://github.com/sanity-io/sanity-plugin-form-toolkit/issues"
+    "url": "https://github.com/sanity-io/form-toolkit/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/sanity-io/sanity-plugin-form-toolkit.git"
+    "url": "git+ssh://git@github.com/sanity-io/form-toolkit.git"
   },
   "license": "MIT",
   "author": "Chris LaRocque <chris.larocque@sanity.io>",
