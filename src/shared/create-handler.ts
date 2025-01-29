@@ -23,12 +23,13 @@ const createHandler = (handlerFunc: () => Promise<unknown>) => {
 
   // Handler logic to fetch Mailchimp data
   const handlerLogic = async ({
+    // eslint-disable-next-line
     req,
     res,
   }: {
     req: IncomingMessage | Request
     res?: ServerResponse
-  }) => {
+  }): Promise<unknown> => {
     try {
       const data = await handlerFunc()
 
@@ -36,7 +37,6 @@ const createHandler = (handlerFunc: () => Promise<unknown>) => {
         // Send response directly for frameworks like Next.js and Nuxt.js
         res.writeHead(200, {'Content-Type': 'application/json'})
         res.end(JSON.stringify(data))
-        return // Ensure no value is returned
       }
 
       // Return the response for frameworks like SvelteKit, Remix, and Astro
@@ -46,7 +46,6 @@ const createHandler = (handlerFunc: () => Promise<unknown>) => {
         if (res) {
           res.writeHead(500, {'Content-Type': 'application/json'})
           res.end(JSON.stringify({error: error.message}))
-          return // Ensure no value is returned
         }
         return {error: error.message}
       }
@@ -54,7 +53,6 @@ const createHandler = (handlerFunc: () => Promise<unknown>) => {
       if (res) {
         res.writeHead(500, {'Content-Type': 'application/json'})
         res.end(JSON.stringify({error: 'An unexpected error occurred'}))
-        return // Ensure no value is returned
       }
       return {error: 'An unexpected error occurred'}
     }

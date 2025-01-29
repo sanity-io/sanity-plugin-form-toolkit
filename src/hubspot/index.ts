@@ -24,6 +24,7 @@ interface HubSpotInputConfig {
  * })
  * ```
  */
+type ExtendedOption = {value: string; name: string}
 
 export const hubSpotInput = definePlugin<HubSpotInputConfig>((options) => {
   return {
@@ -37,10 +38,9 @@ export const hubSpotInput = definePlugin<HubSpotInputConfig>((options) => {
           return body
         },
         autocompleteProps: {
-          // @ts-expect-error todo
-          renderOption: (option) => Option(option),
+          renderOption: (option) => Option(option as ExtendedOption),
           renderValue(value, option) {
-            // @ts-expect-error todo
+            // @ts-expect-error can't extend default type?
             return option?.name ?? value
           },
         },
