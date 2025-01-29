@@ -12,7 +12,7 @@ interface FormSchemaConfig {
  *
  * ```ts
  * import {defineConfig} from 'sanity'
- * import {formiumInput} from 'sanity-plugin-form-toolkit'
+ * import {formiumInput} from '@sanity/form-toolkit'
  *
  * export default defineConfig({
  *   // ...
@@ -20,9 +20,9 @@ interface FormSchemaConfig {
  * })
  * ```
  */
-export const formSchema = definePlugin<FormSchemaConfig | void>((config = {}) => {
+export const formSchema = definePlugin<FormSchemaConfig | void>(() => {
   return {
-    name: 'sanity-plugin-form-toolkit_form-schema',
+    name: 'form-toolkit_form-schema',
     schema,
     plugins: [structureTool({defaultDocumentNode})],
   }

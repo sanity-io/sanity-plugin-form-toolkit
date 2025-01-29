@@ -1,7 +1,7 @@
 import type {ComponentType, FC, FormEvent, ReactNode} from 'react'
 
 import {DefaultField} from './default-field'
-import type {FieldComponentProps, FieldState, FormDataProps, FormField, FormSection} from './types'
+import type {FieldComponentProps, FieldState, FormDataProps, FormField} from './types'
 
 interface FormRendererProps {
   formData: FormDataProps
@@ -11,7 +11,7 @@ interface FormRendererProps {
   // Function to get field error for a given field name
   getFieldError?: (fieldName: string) => string | undefined
   // Function to get current value for any field (used for conditionals)
-  getFieldValue: (fieldName: string) => any
+  // getFieldValue: (fieldName: string) => any
   fieldComponents?: Record<string, ComponentType<FieldComponentProps>>
   className?: string
   children?: ReactNode
@@ -22,7 +22,7 @@ export const FormRenderer: FC<FormRendererProps> = ({
   onSubmit = () => null,
   getFieldState,
   getFieldError,
-  getFieldValue,
+  // getFieldValue,
   fieldComponents = {},
   className = '',
   children,
@@ -39,29 +39,29 @@ export const FormRenderer: FC<FormRendererProps> = ({
     return <DefaultField field={field} fieldState={fieldState} error={error} />
   }
 
-  const shouldShowSection = (section: FormSection): boolean => {
-    if (!section.conditional) return true
+  // const shouldShowSection = (section: FormSection): boolean => {
+  //   if (!section.conditional) return true
 
-    const {field, condition, value} = section.conditional
-    const fieldValue = getFieldValue(field)
+  //   const {field, condition, value} = section.conditional
+  //   const fieldValue = getFieldValue(field)
 
-    switch (condition) {
-      case 'equals':
-        return fieldValue === value
-      case 'not_equals':
-        return fieldValue !== value
-      case 'contains':
-        return typeof fieldValue === 'string' && fieldValue.includes(value)
-      case 'not_contains':
-        return typeof fieldValue === 'string' && !fieldValue.includes(value)
-      default:
-        return true
-    }
-  }
+  //   switch (condition) {
+  //     case 'equals':
+  //       return fieldValue === value
+  //     case 'not_equals':
+  //       return fieldValue !== value
+  //     case 'contains':
+  //       return typeof fieldValue === 'string' && fieldValue.includes(value)
+  //     case 'not_contains':
+  //       return typeof fieldValue === 'string' && !fieldValue.includes(value)
+  //     default:
+  //       return true
+  //   }
+  // }
 
   return (
     <form onSubmit={onSubmit} className={className}>
-      {formData.sections?.map(
+      {/* {formData.sections?.map(
         (section, sectionIndex) =>
           shouldShowSection(section) && (
             <div key={sectionIndex} className="form-section">
@@ -73,13 +73,16 @@ export const FormRenderer: FC<FormRendererProps> = ({
               ))}
             </div>
           ),
-      )}
+      )} */}
+      {formData.fields?.map((field) => (
+        <div key={field._key} className="form-field">
+          {renderField(field)}
+        </div>
+      ))}
 
       {children}
 
-      <button type="submit" style={{textAlign: formData.submitButton?.position || 'center'}}>
-        {formData.submitButton?.text || 'Submit'}
-      </button>
+      <button type="submit">{formData.submitButton?.text || 'Submit'}</button>
     </form>
   )
 }

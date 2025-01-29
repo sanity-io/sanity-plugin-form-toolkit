@@ -1,20 +1,21 @@
 import {type FC, type FormEvent, useState} from 'react'
 
 import {FormRenderer} from '../components/form-renderer'
-import type {FormDataProps} from '../components/types'
+import type {FieldState, FormDataProps} from '../components/types'
 
 interface UseStateExampleProps {
   formData: FormDataProps
-  onSubmit?: (data: Record<string, any>) => void
+  onSubmit?: (data: Record<string, unknown>) => void
 }
 
-const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = console.log}) => {
-  const [values, setValues] = useState<Record<string, any>>({})
+const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = () => null}) => {
+  const [values, setValues] = useState<Record<string, FieldState['value']>>({})
   const [errors, setErrors] = useState<Record<string, string | undefined>>({})
 
   const getFieldState = (fieldName: string) => ({
     value: values[fieldName],
-    onChange: (value: any) => {
+    onChange: (value: unknown) => {
+      // @ts-expect-error todo: fix this
       setValues((prev) => ({
         ...prev,
         [fieldName]: value,
@@ -29,9 +30,9 @@ const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = console
     },
     onBlur: () => {
       // Example validation on blur
-      const field = formData.sections
-        ?.flatMap((section) => section.fields)
-        .find((field) => field?.name === fieldName)
+      const field = formData.fields
+        ?.flatMap((formField) => formField)
+        .find((formField) => formField?.name === fieldName)
 
       if (field?.required && !values[fieldName]) {
         setErrors((prev) => ({
@@ -44,8 +45,6 @@ const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = console
 
   const getFieldError = (fieldName: string) => errors[fieldName]
 
-  const getFieldValue = (fieldName: string) => values[fieldName]
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     onSubmit(values)
@@ -57,7 +56,6 @@ const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = console
       onSubmit={handleSubmit}
       getFieldState={getFieldState}
       getFieldError={getFieldError}
-      getFieldValue={getFieldValue}
     />
   )
 }

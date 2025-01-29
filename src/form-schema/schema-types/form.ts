@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {SectionInput} from './components/section-input'
+
 export const formType = defineType({
   name: 'form',
   title: 'Form',
@@ -20,11 +20,17 @@ export const formType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    // defineField({
+    //   name: 'sections',
+    //   title: 'Form Sections',
+    //   type: 'array',
+    //   of: [{type: 'formSection'}],
+    // }),
     defineField({
-      name: 'sections',
-      title: 'Form Sections',
+      name: 'fields',
+      title: 'Form Fields',
       type: 'array',
-      of: [{type: 'formSection'}],
+      of: [{type: 'formField'}],
     }),
     defineField({
       name: 'submitButton',
@@ -37,15 +43,15 @@ export const formType = defineType({
           type: 'string',
           initialValue: 'Submit',
         }),
-        defineField({
-          name: 'position',
-          title: 'Button Position',
-          type: 'string',
-          options: {
-            list: ['left', 'center', 'right'],
-          },
-          initialValue: 'center',
-        }),
+        // defineField({
+        //   name: 'position',
+        //   title: 'Button Position',
+        //   type: 'string',
+        //   options: {
+        //     list: ['left', 'center', 'right'],
+        //   },
+        //   initialValue: 'center',
+        // }),
       ],
     }),
   ],

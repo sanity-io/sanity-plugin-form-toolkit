@@ -9,23 +9,23 @@ interface ValidationContextDocument {
 }
 // Validation options by field type
 export const validationTypesByFieldType = {
-  text: ['minLength', 'maxLength', 'pattern', 'custom'],
-  email: ['pattern', 'custom'],
-  password: ['minLength', 'pattern', 'custom'],
-  tel: ['pattern', 'custom'],
-  url: ['pattern', 'custom'],
-  number: ['min', 'max', 'custom'],
-  textarea: ['minLength', 'maxLength', 'custom'],
-  select: ['custom'],
-  radio: ['custom'],
   checkbox: ['minSelectedCount', 'maxSelectedCount', 'custom'],
-  file: ['maxSize', 'fileType', 'custom'],
-  date: ['minDate', 'maxDate', 'custom'],
-  time: ['custom'],
-  'datetime-local': ['minDate', 'maxDate', 'custom'],
   color: ['custom'],
-  range: ['min', 'max', 'step', 'custom'],
+  date: ['minDate', 'maxDate', 'custom'],
+  'datetime-local': ['minDate', 'maxDate', 'custom'],
+  email: ['pattern', 'custom'],
+  file: ['maxSize', 'fileType', 'custom'],
   hidden: ['custom'],
+  number: ['min', 'max', 'custom'],
+  password: ['minLength', 'pattern', 'custom'],
+  radio: ['custom'],
+  range: ['min', 'max', 'step', 'custom'],
+  select: ['custom'],
+  tel: ['pattern', 'custom'],
+  text: ['minLength', 'maxLength', 'pattern', 'custom'],
+  textarea: ['minLength', 'maxLength', 'custom'],
+  time: ['custom'],
+  url: ['pattern', 'custom'],
 }
 export const formFieldType = defineType({
   name: 'formField',
@@ -37,7 +37,21 @@ export const formFieldType = defineType({
       title: 'Field Type',
       type: 'string',
       options: {
-        list: Object.keys(validationTypesByFieldType),
+        list: Object.keys(validationTypesByFieldType).map((type) => {
+          const title = (fieldType: string) => {
+            switch (fieldType) {
+              case 'datetime-local':
+                return 'Date & Time'
+              case 'textarea':
+                return 'Text Area'
+              case 'tel':
+                return 'Phone Number'
+              default:
+                return fieldType.charAt(0).toUpperCase() + fieldType.slice(1)
+            }
+          }
+          return {title: title(type), value: type}
+        }),
       },
     }),
     defineField({
@@ -101,40 +115,40 @@ export const formFieldType = defineType({
       type: 'boolean',
       initialValue: false,
     }),
-    defineField({
-      name: 'validation',
-      title: 'Validation Rules',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'type',
-              title: 'Validation Type',
-              type: 'string',
+    // defineField({
+    //   name: 'validation',
+    //   title: 'Validation Rules',
+    //   type: 'array',
+    //   of: [
+    //     {
+    //       type: 'object',
+    //       fields: [
+    //         defineField({
+    //           name: 'type',
+    //           title: 'Validation Type',
+    //           type: 'string',
 
-              hidden: ({parent}) => !parent?.type,
-              options: {
-                // TODO: I think this needs to be a custom input component?
-                // list: ({parent}) => (parent?.type ? validationTypesByFieldType[parent.type] : []),
-                list: [],
-              },
-            }),
-            defineField({
-              name: 'value',
-              title: 'Value',
-              type: 'string',
-            }),
-            defineField({
-              name: 'message',
-              title: 'Error Message',
-              type: 'string',
-            }),
-          ],
-        },
-      ],
-    }),
+    //           hidden: ({parent}) => !parent?.type,
+    //           options: {
+    //             // TODO: I think this needs to be a custom input component?
+    //             // list: ({parent}) => (parent?.type ? validationTypesByFieldType[parent.type] : []),
+    //             list: [],
+    //           },
+    //         }),
+    //         defineField({
+    //           name: 'value',
+    //           title: 'Value',
+    //           type: 'string',
+    //         }),
+    //         defineField({
+    //           name: 'message',
+    //           title: 'Error Message',
+    //           type: 'string',
+    //         }),
+    //       ],
+    //     },
+    //   ],
+    // }),
     defineField({
       name: 'choices',
       title: 'Choices',

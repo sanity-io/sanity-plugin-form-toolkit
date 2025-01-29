@@ -1,4 +1,4 @@
-import type {ChangeEvent, FC} from 'react'
+import type {ChangeEvent, FC, LegacyRef} from 'react'
 
 import type {FieldComponentProps} from './types'
 
@@ -30,7 +30,7 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
       case 'textarea':
         return (
           <textarea
-            ref={ref}
+            ref={ref as LegacyRef<HTMLTextAreaElement>}
             name={name}
             value={value ?? ''}
             onChange={handleChange}
@@ -41,7 +41,13 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
 
       case 'select':
         return (
-          <select ref={ref} name={name} value={value ?? ''} onChange={handleChange} onBlur={onBlur}>
+          <select
+            ref={ref as LegacyRef<HTMLSelectElement>}
+            name={name}
+            value={value ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+          >
             {choices?.map((choice, i) => (
               <option key={i} value={choice.value}>
                 {choice.label}
@@ -56,7 +62,7 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
             <input
               type="radio"
               name={name}
-              ref={ref}
+              ref={ref as LegacyRef<HTMLInputElement>}
               value={choice.value}
               checked={value === choice.value}
               onChange={handleChange}
@@ -72,7 +78,7 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
             <input
               type="checkbox"
               name={name}
-              ref={ref}
+              ref={ref as LegacyRef<HTMLInputElement>}
               value={choice.value}
               checked={Array.isArray(value) ? value.includes(choice.value) : value === choice.value}
               onChange={(e) => handleCheckboxChange(e, choice.value)}
@@ -86,7 +92,7 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
         return (
           <input
             type={type}
-            ref={ref}
+            ref={ref as LegacyRef<HTMLInputElement>}
             name={name}
             value={value ?? ''}
             onChange={handleChange}

@@ -23,6 +23,7 @@ export type FormField = {
   validation?: ValidationRule[]
   options?: FieldOptions
   choices?: FieldChoice[]
+  _key: string
 }
 
 export type FormSection = {
@@ -40,7 +41,9 @@ export type FormDataProps = {
   id: {
     current: string
   }
-  sections?: FormSection[]
+  // sections?: FormSection[]
+  fields?: FormField[]
+
   submitButton?: {
     text: string
     position: 'left' | 'center' | 'right'
@@ -49,10 +52,10 @@ export type FormDataProps = {
 
 // New type for field state management
 export interface FieldState {
-  value: any
-  onChange: (value: any) => void
+  value?: string | number | readonly string[]
+  onChange: (value: unknown) => void
   onBlur?: () => void
-  ref?: React.Ref<any>
+  ref?: unknown
 }
 
 export interface FieldComponentProps {

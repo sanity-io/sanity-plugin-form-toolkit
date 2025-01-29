@@ -1,4 +1,5 @@
-import {useState, FormEvent, type FC} from 'react'
+import {type FC, FormEvent, useState} from 'react'
+
 import {FormRenderer} from '../form-renderer'
 import type {FormDataProps} from '../types'
 
