@@ -1,10 +1,8 @@
 import {defineField, defineType} from 'sanity'
 interface ValidationContextDocument {
-  sections?: Array<{
-    fields?: Array<{
-      name: string
-      type?: string
-    }>
+  fields?: Array<{
+    name: string
+    type?: string
   }>
 }
 // Validation options by field type
@@ -17,7 +15,7 @@ export const validationTypesByFieldType = {
   file: ['maxSize', 'fileType', 'custom'],
   hidden: ['custom'],
   number: ['min', 'max', 'custom'],
-  password: ['minLength', 'pattern', 'custom'],
+  // password: ['minLength', 'pattern', 'custom'],
   radio: ['custom'],
   range: ['min', 'max', 'step', 'custom'],
   select: ['custom'],
@@ -77,9 +75,7 @@ export const formFieldType = defineType({
 
           // Check uniqueness across all sections
           const doc = context.document as ValidationContextDocument
-          const allFieldNames =
-            doc?.sections?.flatMap((section) => section.fields?.map((field) => field.name) || []) ||
-            []
+          const allFieldNames = doc?.fields?.map((field) => field.name) || []
 
           // Count occurrences of this name
           const nameCount = allFieldNames.filter((n) => n === name).length
@@ -178,6 +174,9 @@ export const formFieldType = defineType({
       name: 'options',
       title: 'Field Options',
       type: 'object',
+      hidden: ({parent}) => {
+        return ['select', 'radio', 'checkbox', 'file'].includes(parent?.type)
+      },
       fields: [
         defineField({
           name: 'placeholder',
@@ -192,4 +191,17 @@ export const formFieldType = defineType({
       ],
     }),
   ],
+  preview: {
+    select: {
+      label: 'label',
+      name: 'name',
+      type: 'type',
+    },
+    prepare({label, name, type}) {
+      return {
+        title: label || name,
+        subtitle: type,
+      }
+    },
+  },
 })

@@ -51,12 +51,25 @@ const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = () => n
   }
 
   return (
-    <FormRenderer
-      formData={formData}
-      onSubmit={handleSubmit}
-      getFieldState={getFieldState}
-      getFieldError={getFieldError}
-    />
+    <>
+      <style>
+        {`
+        .form-field  > label {
+         display: block;
+        }
+        .form-field {
+          margin-bottom: 1rem;
+        }
+
+      `}
+      </style>
+      <FormRenderer
+        formData={formData}
+        onSubmit={handleSubmit}
+        getFieldState={getFieldState}
+        getFieldError={getFieldError}
+      />
+    </>
   )
 }
 export const DocumentView = (props: {document: {displayed: FormDataProps}}) => {

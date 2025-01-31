@@ -94,7 +94,7 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
             type={type}
             ref={ref as LegacyRef<HTMLInputElement>}
             name={name}
-            value={value ?? ''}
+            value={value ?? options.defaultValue ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             placeholder={options.placeholder}
@@ -104,10 +104,10 @@ export const DefaultField: FC<FieldComponentProps> = ({field, fieldState, error}
   }
 
   return (
-    <div>
-      {label && <label htmlFor={name}>{label}</label>}
+    <>
+      {label && type != 'hidden' && <label htmlFor={name}>{label}</label>}
       {renderInput()}
       {error && <span className="error">{error}</span>}
-    </div>
+    </>
   )
 }
