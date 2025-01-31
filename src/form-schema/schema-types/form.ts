@@ -1,9 +1,11 @@
 import {defineField, defineType} from 'sanity'
+import {MdDynamicForm} from 'react-icons/md'
 
 export const formType = defineType({
   name: 'form',
   title: 'Form',
   type: 'document',
+  icon: MdDynamicForm,
   fields: [
     defineField({
       name: 'title',

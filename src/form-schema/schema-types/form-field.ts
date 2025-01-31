@@ -1,4 +1,6 @@
 import {defineField, defineType} from 'sanity'
+import {LuTextCursorInput} from 'react-icons/lu'
+
 interface ValidationContextDocument {
   fields?: Array<{
     name: string
@@ -29,6 +31,7 @@ export const formFieldType = defineType({
   name: 'formField',
   title: 'Form Field',
   type: 'object',
+  icon: LuTextCursorInput,
   fields: [
     defineField({
       name: 'type',
