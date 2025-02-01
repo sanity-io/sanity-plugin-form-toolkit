@@ -8,11 +8,10 @@ interface FormikExampleProps {
 }
 
 export const FormikExample: FC<FormikExampleProps> = ({formData, onSubmit = console.log}) => {
-  const initialValues = formData.sections?.reduce(
-    (acc, section) => {
-      section.fields?.forEach((field) => {
-        acc[field.name] = field.options?.defaultValue ?? ''
-      })
+  const initialValues = formData.fields?.reduce(
+    (acc, field) => {
+      acc[field.name] = field.options?.defaultValue ?? ''
+
       return acc
     },
     {} as Record<string, any>,
@@ -24,12 +23,10 @@ export const FormikExample: FC<FormikExampleProps> = ({formData, onSubmit = cons
     validate: (values) => {
       const errors: Record<string, string> = {}
 
-      formData.sections?.forEach((section) => {
-        section.fields?.forEach((field) => {
-          if (field.required && !values[field.name]) {
-            errors[field.name] = 'This field is required'
-          }
-        })
+      formData.fields?.forEach((field) => {
+        if (field.required && !values[field.name]) {
+          errors[field.name] = 'This field is required'
+        }
       })
 
       return errors

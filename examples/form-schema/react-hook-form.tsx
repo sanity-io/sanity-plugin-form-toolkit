@@ -20,9 +20,7 @@ export const ReactHookFormExample: FC<ReactHookFormExampleProps> = ({
 
   const getFieldState = (fieldName: string) => {
     const {ref, ...rest} = register(fieldName, {
-      required: formData.sections
-        ?.flatMap((section) => section.fields)
-        .find((field) => field?.name === fieldName)?.required
+      required: formData.fields?.find((field) => field?.name === fieldName)?.required
         ? 'This field is required'
         : false,
     })

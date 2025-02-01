@@ -29,9 +29,7 @@ export const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = 
     },
     onBlur: () => {
       // Example validation on blur
-      const field = formData.sections
-        ?.flatMap((section) => section.fields)
-        .find((field) => field?.name === fieldName)
+      const field = formData.fields?.find((field) => field?.name === fieldName)
 
       if (field?.required && !values[fieldName]) {
         setErrors((prev) => ({

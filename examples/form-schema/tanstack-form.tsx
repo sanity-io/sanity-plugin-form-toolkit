@@ -15,41 +15,38 @@ export const TanStackFormExample: FC<TanStackFormExampleProps> = ({
   const createSchema = () => {
     const schemaFields: Record<string, z.ZodType> = {}
 
-    formData.sections?.forEach((section) => {
-      section.fields?.forEach((field) => {
-        let schema = z.string()
+    formData.fields?.forEach((field) => {
+      let schema = z.string()
 
-        if (field.required) {
-          schema = schema.min(1, 'This field is required')
+      if (field.required) {
+        schema = schema.min(1, 'This field is required')
+      }
+
+      field.validation?.forEach((rule) => {
+        switch (rule.type) {
+          case 'minLength':
+            schema = schema.min(Number(rule.value), rule.message)
+            break
+          case 'maxLength':
+            schema = schema.max(Number(rule.value), rule.message)
+            break
+          case 'pattern':
+            schema = schema.regex(new RegExp(rule.value), rule.message)
+            break
         }
-
-        field.validation?.forEach((rule) => {
-          switch (rule.type) {
-            case 'minLength':
-              schema = schema.min(Number(rule.value), rule.message)
-              break
-            case 'maxLength':
-              schema = schema.max(Number(rule.value), rule.message)
-              break
-            case 'pattern':
-              schema = schema.regex(new RegExp(rule.value), rule.message)
-              break
-          }
-        })
-
-        schemaFields[field.name] = schema
       })
+
+      schemaFields[field.name] = schema
     })
 
     return z.object(schemaFields)
   }
 
   const form = createForm({
-    defaultValues: formData.sections?.reduce(
-      (acc, section) => {
-        section.fields?.forEach((field) => {
-          acc[field.name] = field.options?.defaultValue ?? ''
-        })
+    defaultValues: formData.fields?.reduce(
+      (acc, field) => {
+        acc[field.name] = field.options?.defaultValue ?? ''
+
         return acc
       },
       {} as Record<string, string>,
