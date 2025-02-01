@@ -22,12 +22,6 @@ export const formType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    // defineField({
-    //   name: 'sections',
-    //   title: 'Form Sections',
-    //   type: 'array',
-    //   of: [{type: 'formSection'}],
-    // }),
     defineField({
       name: 'fields',
       title: 'Form Fields',

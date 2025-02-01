@@ -1,5 +1,5 @@
-import {defineField, defineType} from 'sanity'
 import {LuTextCursorInput} from 'react-icons/lu'
+import {defineField, defineType} from 'sanity'
 
 interface ValidationContextDocument {
   fields?: Array<{
@@ -76,7 +76,7 @@ export const formFieldType = defineType({
             return 'Field name must start with a letter and contain only letters, numbers, underscores, or hyphens'
           }
 
-          // Check uniqueness across all sections
+          // Check uniqueness across all fields
           const doc = context.document as ValidationContextDocument
           const allFieldNames = doc?.fields?.map((field) => field.name) || []
 
@@ -85,7 +85,7 @@ export const formFieldType = defineType({
 
           // If we find more than one occurrence (including current field), it's not unique
           if (nameCount > 1) {
-            return 'Field name must be unique across all form sections'
+            return 'Field name must be unique across all form fields'
           }
 
           // Check for reserved HTML form attributes

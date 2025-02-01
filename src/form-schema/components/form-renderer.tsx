@@ -39,41 +39,8 @@ export const FormRenderer: FC<FormRendererProps> = ({
     return <DefaultField field={field} fieldState={fieldState} error={error} />
   }
 
-  // const shouldShowSection = (section: FormSection): boolean => {
-  //   if (!section.conditional) return true
-
-  //   const {field, condition, value} = section.conditional
-  //   const fieldValue = getFieldValue(field)
-
-  //   switch (condition) {
-  //     case 'equals':
-  //       return fieldValue === value
-  //     case 'not_equals':
-  //       return fieldValue !== value
-  //     case 'contains':
-  //       return typeof fieldValue === 'string' && fieldValue.includes(value)
-  //     case 'not_contains':
-  //       return typeof fieldValue === 'string' && !fieldValue.includes(value)
-  //     default:
-  //       return true
-  //   }
-  // }
-
   return (
     <form onSubmit={onSubmit} className={className}>
-      {/* {formData.sections?.map(
-        (section, sectionIndex) =>
-          shouldShowSection(section) && (
-            <div key={sectionIndex} className="form-section">
-              {section.title && <h3>{section.title}</h3>}
-              {section.fields?.map((field, fieldIndex) => (
-                <div key={fieldIndex} className="form-field">
-                  {renderField(field)}
-                </div>
-              ))}
-            </div>
-          ),
-      )} */}
       {formData.fields?.map((field) => (
         <div key={field._key} className="form-field">
           {renderField(field)}

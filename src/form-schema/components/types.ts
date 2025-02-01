@@ -26,22 +26,11 @@ export type FormField = {
   _key: string
 }
 
-export type FormSection = {
-  title?: string
-  fields?: FormField[]
-  conditional?: {
-    field: string
-    condition: 'equals' | 'not_equals' | 'contains' | 'not_contains'
-    value: string
-  }
-}
-
 export type FormDataProps = {
   title: string
   id: {
     current: string
   }
-  // sections?: FormSection[]
   fields?: FormField[]
 
   submitButton?: {
