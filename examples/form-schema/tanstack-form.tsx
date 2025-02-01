@@ -1,7 +1,6 @@
 import {useForm, createForm, zodValidator} from '@tanstack/react-form'
 import {z} from 'zod'
-import {FormRenderer} from '../form-renderer'
-import type {FormDataProps} from '../types'
+import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
 
 interface TanStackFormExampleProps {
   formData: FormDataProps

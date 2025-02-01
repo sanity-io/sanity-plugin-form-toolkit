@@ -1,6 +1,6 @@
 import {type FC, FormEvent, useState} from 'react'
 
-import {FormRenderer} from '../form-renderer'
+import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
 import type {FormDataProps} from '../types'
 
 interface UseStateExampleProps {

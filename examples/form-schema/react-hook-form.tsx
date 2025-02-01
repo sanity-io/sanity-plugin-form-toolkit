@@ -1,6 +1,6 @@
+import type {FC} from 'react'
 import {useForm} from 'react-hook-form'
-import {FormRenderer} from '../form-renderer'
-import type {FormDataProps} from '../types'
+import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
 
 interface ReactHookFormExampleProps {
   formData: FormDataProps

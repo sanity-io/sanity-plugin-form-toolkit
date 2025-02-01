@@ -1,7 +1,5 @@
 import React, {type FC, type FormEvent} from 'react'
-
-import {FormRenderer} from '../form-renderer'
-import type {FormDataProps} from '../types'
+import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
 
 interface NativeFormExampleProps {
   formData: FormDataProps
