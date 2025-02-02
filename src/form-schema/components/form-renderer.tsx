@@ -1,9 +1,9 @@
-import type {ComponentType, FC, FormEvent, ReactNode} from 'react'
+import type {ComponentType, FC, FormEvent, HTMLProps} from 'react'
 
 import {DefaultField} from './default-field'
 import type {FieldComponentProps, FieldState, FormDataProps, FormField} from './types'
 
-interface FormRendererProps {
+interface FormRendererProps extends HTMLProps<HTMLFormElement> {
   formData: FormDataProps
   onSubmit?: (e: FormEvent) => void
   // Function to get field state for a given field name
@@ -13,20 +13,19 @@ interface FormRendererProps {
   // Function to get current value for any field (used for conditionals)
   // getFieldValue: (fieldName: string) => any
   fieldComponents?: Record<string, ComponentType<FieldComponentProps>>
-  className?: string
-  children?: ReactNode
 }
 
-export const FormRenderer: FC<FormRendererProps> = ({
-  formData,
-  onSubmit = () => null,
-  getFieldState,
-  getFieldError,
-  // getFieldValue,
-  fieldComponents = {},
-  className = '',
-  children,
-}) => {
+export const FormRenderer: FC<FormRendererProps> = (props) => {
+  const {
+    formData,
+    onSubmit = () => null,
+    getFieldState,
+    getFieldError,
+    // getFieldValue,
+    fieldComponents = {},
+    className = '',
+    children,
+  } = props
   const renderField = (field: FormField) => {
     const CustomComponent = fieldComponents[field.name]
     const fieldState = getFieldState(field.name)
