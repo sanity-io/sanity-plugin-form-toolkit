@@ -10,22 +10,12 @@ interface FormRendererProps extends HTMLProps<HTMLFormElement> {
   getFieldState: (fieldName: string) => FieldState
   // Function to get field error for a given field name
   getFieldError?: (fieldName: string) => string | undefined
-  // Function to get current value for any field (used for conditionals)
-  // getFieldValue: (fieldName: string) => any
+  // Override default field components
   fieldComponents?: Record<string, ComponentType<FieldComponentProps>>
 }
 
 export const FormRenderer: FC<FormRendererProps> = (props) => {
-  const {
-    formData,
-    onSubmit = () => null,
-    getFieldState,
-    getFieldError,
-    // getFieldValue,
-    fieldComponents = {},
-    className = '',
-    children,
-  } = props
+  const {formData, getFieldState, getFieldError, fieldComponents = {}, children} = props
   const renderField = (field: FormField) => {
     const CustomComponent = fieldComponents[field.name]
     const fieldState = getFieldState(field.name)
@@ -39,7 +29,7 @@ export const FormRenderer: FC<FormRendererProps> = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className={className}>
+    <form {...props}>
       {formData.fields?.map((field) => (
         <div key={field._key} className="form-field">
           {renderField(field)}
