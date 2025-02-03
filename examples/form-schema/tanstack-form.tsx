@@ -1,4 +1,5 @@
 import {useForm, createForm, zodValidator} from '@tanstack/react-form'
+import {type FC} from 'react'
 import {z} from 'zod'
 import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
 
@@ -75,17 +76,12 @@ export const TanStackFormExample: FC<TanStackFormExampleProps> = ({
     return field.errors?.[0]
   }
 
-  const getFieldValue = (fieldName: string) => {
-    return state.getFieldMeta(fieldName).value
-  }
-
   return (
     <FormRenderer
       formData={formData}
       onSubmit={state.handleSubmit}
       getFieldState={getFieldState}
       getFieldError={getFieldError}
-      getFieldValue={getFieldValue}
     />
   )
 }

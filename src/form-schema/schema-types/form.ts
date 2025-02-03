@@ -1,5 +1,5 @@
-import {defineField, defineType} from 'sanity'
 import {FaWpforms} from 'react-icons/fa'
+import {defineField, defineType} from 'sanity'
 
 export const formType = defineType({
   name: 'form',
@@ -11,6 +11,7 @@ export const formType = defineType({
       name: 'title',
       title: 'Form Title',
       type: 'string',
+      description: 'Internal title for the form',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -20,7 +21,7 @@ export const formType = defineType({
       options: {
         source: 'title',
       },
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'fields',

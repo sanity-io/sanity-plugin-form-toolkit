@@ -39,7 +39,6 @@ export type FormDataProps = {
   }
 }
 
-// New type for field state management
 export interface FieldState {
   value?: string | number | readonly string[]
   onChange: (value: unknown) => void

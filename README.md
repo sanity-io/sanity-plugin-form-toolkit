@@ -158,6 +158,85 @@ export default defineType({
 })
 ```
 
+## formSchema and FormRenderer
+
+The `formSchema` plugin and `FormRenderer` React component are designed to be used together to build and render forms in Sanity. `formSchema` provides a Sanity schema for creating `form` documents made up of various `formFields`, then `FormRenderer` takes those `form` documents and renders them as React components. The `formSchema` plugin can be used by itself with your own logic for rendering the form. The `/examples` directory of this repository shows `FormRenderer` being used with popular form libraries.
+
+First add `formSchema` it as a plugin in `sanity.config.ts` (or .js):
+
+```ts
+import {defineConfig} from 'sanity'
+import {formSchema} from '@sanity/form-toolkit'
+
+export default defineConfig({
+  //...
+  plugins: [formSchema()],
+})
+```
+
+Then pass a `form` document to the `FormRenderer` component
+
+```tsx
+import React, {type FC} from 'react'
+import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
+
+interface NativeFormExampleProps {
+  formData: FormDataProps
+  action?: string
+  method?: 'get' | 'post'
+}
+/**
+ * Example of using the `FormRenderer` as a native HTML form element.
+ */
+export const NativeFormExample: FC<NativeFormExampleProps> = ({
+  formData, // form document from Sanity
+  action = '/api/submit',
+  method = 'post',
+}) => {
+  return (
+    <FormRenderer
+      formData={formData}
+      action={action}
+      method={method}
+      encType="multipart/form-data"
+    />
+  )
+}
+```
+
+### FormRenderer
+
+The `FormRenderer` component takes documents created with the `formSchema` plugin and renders a form for your front-end. The `formSchema` plugin can be used by itself with your own logic for rendering the form. The `/examples` directory of this repository shows `FormRenderer` being used with popular form libraries. `FormRenderer` takes the following props
+
+#### All props for native `form` element
+
+`FormRenderer` can take all the typical props passed to the `form` element in React like `action`, `onSubmit`, `className`, etc.
+
+#### formData
+
+A `form` document created with the `formSchema` plugin.
+
+#### fieldComponents
+
+An object where the keys are possible input field type names and the values are components for that field's input.
+
+```tsx
+const fieldComponents = {
+  select: MyCustomSelectComponent
+}
+<FormRenderer
+  fieldComponents={fieldComponents}
+/>
+```
+
+#### getFieldState
+
+Function for managing each field as a piece of state (see `react-hook-form.tsx` and `tanstack-form.tsx` in the `/examples` directory)
+
+#### getFieldError
+
+Similar to `getFieldState`, a function for managing each field's errors as a piece of state (see `react-hook-form.tsx` and `tanstack-form.tsx` in the `/examples` directory)
+
 ## License
 
 [MIT](LICENSE) © Chris LaRocque
@@ -169,7 +248,6 @@ with default configuration for build & watch scripts.
 
 See [Testing a plugin in Sanity Studio](https://github.com/sanity-io/plugin-kit#testing-a-plugin-in-sanity-studio)
 on how to run this plugin with hotreload in the studio.
-
 
 ### Release new version
 

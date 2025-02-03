@@ -1,7 +1,6 @@
 import {type FC, FormEvent, useState} from 'react'
 
 import {FormRenderer, type FormDataProps} from '@sanity/form-toolkit'
-import type {FormDataProps} from '../types'
 
 interface UseStateExampleProps {
   formData: FormDataProps
@@ -42,8 +41,6 @@ export const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = 
 
   const getFieldError = (fieldName: string) => errors[fieldName]
 
-  const getFieldValue = (fieldName: string) => values[fieldName]
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     onSubmit(values)
@@ -55,7 +52,6 @@ export const UseStateExample: FC<UseStateExampleProps> = ({formData, onSubmit = 
       onSubmit={handleSubmit}
       getFieldState={getFieldState}
       getFieldError={getFieldError}
-      getFieldValue={getFieldValue}
     />
   )
 }

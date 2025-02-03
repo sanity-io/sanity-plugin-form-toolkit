@@ -34,15 +34,12 @@ export const ReactHookFormExample: FC<ReactHookFormExampleProps> = ({
 
   const getFieldError = (fieldName: string) => errors[fieldName]?.message as string | undefined
 
-  const getFieldValue = (fieldName: string) => watch(fieldName)
-
   return (
     <FormRenderer
       formData={formData}
       onSubmit={handleSubmit(onSubmit)}
-      getFieldState={getFieldState}
       getFieldError={getFieldError}
-      getFieldValue={getFieldValue}
+      getFieldState={getFieldState}
     />
   )
 }

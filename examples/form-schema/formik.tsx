@@ -43,15 +43,12 @@ export const FormikExample: FC<FormikExampleProps> = ({formData, onSubmit = cons
   const getFieldError = (fieldName: string) =>
     formik.touched[fieldName] ? formik.errors[fieldName] : undefined
 
-  const getFieldValue = (fieldName: string) => formik.values[fieldName]
-
   return (
     <FormRenderer
       formData={formData}
       onSubmit={formik.handleSubmit}
       getFieldState={getFieldState}
       getFieldError={getFieldError}
-      getFieldValue={getFieldValue}
     />
   )
 }

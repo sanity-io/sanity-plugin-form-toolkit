@@ -1,13 +1,12 @@
-import type {ComponentType, FC, FormEvent, HTMLProps} from 'react'
+import type {ComponentType, FC, HTMLProps} from 'react'
 
 import {DefaultField} from './default-field'
 import type {FieldComponentProps, FieldState, FormDataProps, FormField} from './types'
 
 interface FormRendererProps extends HTMLProps<HTMLFormElement> {
   formData: FormDataProps
-  onSubmit?: (e: FormEvent) => void
   // Function to get field state for a given field name
-  getFieldState: (fieldName: string) => FieldState
+  getFieldState?: (fieldName: string) => FieldState
   // Function to get field error for a given field name
   getFieldError?: (fieldName: string) => string | undefined
   // Override default field components
@@ -15,9 +14,19 @@ interface FormRendererProps extends HTMLProps<HTMLFormElement> {
 }
 
 export const FormRenderer: FC<FormRendererProps> = (props) => {
-  const {formData, getFieldState, getFieldError, fieldComponents = {}, children} = props
+  const {
+    formData,
+    getFieldState = (name) => ({
+      value: undefined,
+      onChange: () => {},
+      name, // Pass name to field for native form handling
+    }),
+    getFieldError,
+    fieldComponents = {},
+    children,
+  } = props
   const renderField = (field: FormField) => {
-    const CustomComponent = fieldComponents[field.name]
+    const CustomComponent = fieldComponents[field.type]
     const fieldState = getFieldState(field.name)
     const error = getFieldError?.(field.name)
 
@@ -29,7 +38,7 @@ export const FormRenderer: FC<FormRendererProps> = (props) => {
   }
 
   return (
-    <form {...props}>
+    <form {...props} id={props.id ?? formData?.id?.current}>
       {formData.fields?.map((field) => (
         <div key={field._key} className="form-field">
           {renderField(field)}
