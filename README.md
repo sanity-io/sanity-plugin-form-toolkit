@@ -237,6 +237,10 @@ Function for managing each field as a piece of state (see `react-hook-form.tsx` 
 
 Similar to `getFieldState`, a function for managing each field's errors as a piece of state (see `react-hook-form.tsx` and `tanstack-form.tsx` in the `/examples` directory)
 
+## License
+
+[MIT](LICENSE) © Chris LaRocque
+
 ## Develop & test
 
 This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugin-kit)
