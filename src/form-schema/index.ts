@@ -1,27 +1,28 @@
 import {definePlugin} from 'sanity'
+// import {structureTool} from 'sanity/structure'
 
+import {FormRenderer} from './components/form-renderer'
 import {schema} from './schema-types'
-interface FormSchemaConfig {
-  /* nothing here yet */
-}
+// import {defaultDocumentNode} from './structure'
 
 /**
  * Usage in `sanity.config.ts` (or .js)
  *
  * ```ts
  * import {defineConfig} from 'sanity'
- * import {formiumInput} from 'sanity-plugin-form-toolkit'
+ * import {formSchema} from '@sanity/form-toolkit'
  *
  * export default defineConfig({
  *   // ...
- *   plugins: [formiumInput()],
+ *   plugins: [formSchema()],
  * })
  * ```
  */
-// Is Formium dead? All attempts to use the API come back with an expired cert https://github.com/formium/formium/issues/77
-export const formSchema = definePlugin<FormSchemaConfig | void>(() => {
+export {FormRenderer}
+export const formSchema = definePlugin(() => {
   return {
-    name: 'sanity-plugin-form-toolkit_form-schema',
+    name: 'form-toolkit_form-schema',
     schema,
+    // plugins: [structureTool({defaultDocumentNode})],
   }
 })

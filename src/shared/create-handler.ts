@@ -1,4 +1,4 @@
-import {defineEventHandler, H3Event} from 'h3' // For Nuxt.js/Nitro
+import {defineEventHandler, type H3Event} from 'h3' // For Nuxt.js/Nitro
 import type {IncomingMessage, ServerResponse} from 'http'
 
 // Utility function to detect the framework at runtime
