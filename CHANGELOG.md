@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/sanity-io/form-toolkit/compare/v1.1.0...v1.2.0) (2025-02-03)
+
+### Features
+
+- release ([1307b28](https://github.com/sanity-io/form-toolkit/commit/1307b2863a5c93da14a5ccd1935848036966e73a))
+
 ## [1.1.0](https://github.com/sanity-io/form-toolkit/compare/v1.0.0...v1.1.0) (2025-01-28)
 
 ### Features
